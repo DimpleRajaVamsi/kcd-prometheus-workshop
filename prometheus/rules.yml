@@ -1,0 +1,37 @@
+groups:
+  - name: recording_rules_custom
+    interval: 10s
+    rules:
+      - record: api_success_percentage
+        expr: (sum by (api_name) (api_invoke_count{success="true"})) * 100 / ((sum by (api_name) (api_invoke_count{success="false"})) + (sum by (api_name) (api_invoke_count{success="true"})))
+  - name: alerting_rules
+    interval: 10s
+    rules:
+      - alert: high_load_alert
+        expr: present_connections > 5
+        for: 20s
+        labels:
+          severity: high
+        annotations:
+          summary: High load on the suggestions system
+      - alert: api_success_rate
+        expr: (sum by (api_name) (api_invoke_count{success="true"})) * 100 / ((sum by (api_name) (api_invoke_count{success="false"})) + (sum by (api_name) (api_invoke_count{success="true"}))) < 70
+        for: 30s
+        labels:
+          severity: blocker
+        annotations:
+          summary: "{{ $labels.api_name }} success percentable is less than 70"
+      - alert: api_success_rate
+        expr: (sum by (api_name) (api_invoke_count{success="true"})) * 100 / ((sum by (api_name) (api_invoke_count{success="false"})) + (sum by (api_name) (api_invoke_count{success="true"}))) < 80
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.api_name }} success percentable is less than 80"
+      - alert: api_success_rate
+        expr: (sum by (api_name) (api_invoke_count{success="true"})) * 100 / ((sum by (api_name) (api_invoke_count{success="false"})) + (sum by (api_name) (api_invoke_count{success="true"}))) < 90
+        for: 30s
+        labels:
+          severity: risk
+        annotations:
+          summary: "{{ $labels.api_name }} success percentable is less than 90"

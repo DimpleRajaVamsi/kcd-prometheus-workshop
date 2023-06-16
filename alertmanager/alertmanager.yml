@@ -1,0 +1,44 @@
+global:
+  # slack API incoming webhook
+  slack_api_url_file: /etc/slack/suggestion_slack_webhook
+
+route:
+  group_by: ["severity"]
+  receiver: "team-suggestion"
+  routes:
+    - matchers:
+        - api_name="beer"
+      receiver: "team-beer"
+    - matchers:
+        - api_name="car"
+      receiver: "team-car"
+
+receivers:
+  - name: "team-suggestion"
+    slack_configs:
+      - channel: "#prometheus-alert-manager"
+        # Whether to send resolved alerts
+        send_resolved: true
+  - name: "team-beer"
+    slack_configs:
+      - channel: "#prometheus-alert-beer"
+        send_resolved: true
+        api_url_file: /etc/slack/beer_slack_webhook
+  - name: "team-car"
+    slack_configs:
+      - channel: "#prometheus-alert-manager"
+        send_resolved: true
+
+inhibit_rules:
+  - source_matchers:
+      - severity="blocker"
+    target_matchers:
+      # multiple matchers are ANDed together
+      - severity=~"critical|risk"
+    # Need to suprees same alert for the same api
+    equal: ["alertname", "api_name"]
+  - source_matchers:
+      - severity="critical"
+    target_matchers:
+      - severity="risk"
+    equal: ["alertname", "api_name"]

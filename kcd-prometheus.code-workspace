@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "server"
+		},
+		{
+			"path": "alertmanager"
+		},
+		{
+			"path": "client"
+		},
+		{
+			"path": "grafana"
+		},
+		{
+			"path": "prometheus"
+		},
+		{
+			"path": "job"
+		}
+	],
+	"settings": {}
+}

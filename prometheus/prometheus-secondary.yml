@@ -1,0 +1,8 @@
+scrape_configs:
+  - job_name: kcd-pushgateway
+    scrape_interval: 1s
+    scrape_timeout: 1s
+    scheme: http
+    static_configs:
+      - targets:
+          - kcd-pushgateway:9091
