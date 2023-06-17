@@ -46,15 +46,17 @@ Grafana dashboards for the node exporter original file can be found [here](https
 ```bash
 # `make` command to see the help for the command
 make setup # to setup the docker network
-make run-server
-make run-node-exporter
-make run-prometheus
-make run-alertmanager
-make run-grafana
-make run-pushgateway
-make run-prometheus-secondary
-make run-prometheus-federation
+make run-server # To run the suggestions application
+make run-node-exporter # To run the node exporter in a docker container
+make run-prometheus # To run the first prometheus instance
+make run-alertmanager # To run the alert manager
+make run-grafana # to run grafana 
+make run-pushgateway # to run pushgateway
+make run-prometheus-secondary # to run second prometheus instace that scrape metrics from the push gateway
+make run-prometheus-federation # to run the third prometheus instace that pulls metrics from first and second
+                               # prometheus instances
 make run-client # tweak cocurrentRoutines, iterations and delay
+make run-job # to push metrics to push gateway
 # `make clean` to remove the containers and network
 # `make all` to run all the containers
 ```
