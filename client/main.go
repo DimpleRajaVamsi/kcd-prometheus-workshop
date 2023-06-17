@@ -15,7 +15,7 @@ const (
 	serverip          string        = "kcd-server"
 	port              int           = 8089
 	delay             time.Duration = 120 * time.Second
-	cocurrentRoutines int           = 3
+	cocurrentRoutines int           = 6
 	iterations        int           = 10
 )
 

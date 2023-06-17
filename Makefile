@@ -89,7 +89,7 @@ run-prometheus-federation: ## Running prometheus in federation pulling metrics f
 	docker rm -f kcd-prometheus-federation || true
 	docker run --name kcd-prometheus-federation -p 9094:9090 --network kcd-network -d \
 	-v $(shell pwd)/prometheus/prometheus-federation.yml:/etc/prometheus/prometheus.yml \
-	prom/prometheus --enable-feature=native-histograms
+	prom/prometheus
 
 .PHONY: all
 all: run-server run-node-exporter run-prometheus run-alertmanager run-grafana run-client ## Run all the containers

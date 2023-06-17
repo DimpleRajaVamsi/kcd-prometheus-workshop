@@ -14,7 +14,7 @@ scrape_configs:
       - targets:
           - kcd-server:8089
         labels:
-          kcd_server: docker
+          kcd_server: metrics
   - job_name: kcd-server-default
     scrape_interval: 1s
     scrape_timeout: 1s
@@ -24,7 +24,7 @@ scrape_configs:
       - targets:
           - kcd-server:8089
         labels:
-          kcd_server: docker
+          kcd_server: default-metrics
   - job_name: kcd-node-exporter
     scrape_interval: 1s
     scrape_timeout: 1s
